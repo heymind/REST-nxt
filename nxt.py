@@ -22,7 +22,7 @@ def list_nxts():
 @app.route('/<nxt_name>/motor/<action>')
 def motor(nxt_name,action):
     try:
-        port = request.args.get('port')
+        port = request.args.get('port') or 'ALL'
 
         speed = int(request.args.get('speed') or 100)
         direction = int(request.args.get('direction') or 0)
@@ -36,7 +36,7 @@ def motor(nxt_name,action):
         if action == 'break':
             mode = 0x02
 
-        port = ({'A':0,'B':1,'C':2}[port.upper()]) or 0xff
+        port = {'A':0,'B':1,'C':2,'ALL':0xff}[port.upper()]
         print(port)
         payload = pack("BBBbBBbBL",0,4,port,speed,mode,regulation_mode,\
                                direction,run_state,time)
