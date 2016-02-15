@@ -37,7 +37,7 @@ def motor(nxt_name,action):
             mode = 0x02
 
         port = ({'A':0,'B':1,'C':2}[port.upper()]) or 0xff
-
+        print(port)
         payload = pack("BBBbBBbBL",0,4,port,speed,mode,regulation_mode,\
                                direction,run_state,time)
         device.write(NXT_ENDPOINT_WRITE,payload)
